@@ -108,3 +108,12 @@ items:
     why it matters, and how to use it; docs are only for deeper design, legacy
     material, and extended validation notes. Added consistent Overview, Key Value,
     and How To Use sections to all root READMEs.
+- id: compact-readme-template
+  area: docs
+  title: Compact long root READMEs into a consistent template with overview, value,
+    usage, docs links, simple principle, and optional performance results.
+  status: done
+  notes: User wants root READMEs shorter and consistently structured; long details
+    should move to docs while the essential summary and usage remain in README.
+    Rewrote all root READMEs to a compact template and kept performance results
+    only where measured.
