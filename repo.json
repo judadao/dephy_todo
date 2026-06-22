@@ -1,7 +1,16 @@
 {
   "repo_type": "module",
   "name": "dephy_todo",
+  "description": "Global structured TODO management and routine automation module for multi-repo Dephy workspaces.",
   "module_kind": "todo_management",
-  "product_dependency_allowed": true
+  "product_dependency_allowed": true,
+  "license": "MIT",
+  "attribution_notice": "Copyright notice and attribution to Judd (judadao) must be preserved.",
+  "topics": [
+    "dephy",
+    "todo",
+    "automation",
+    "multi-repo",
+    "developer-tools"
+  ]
 }
-

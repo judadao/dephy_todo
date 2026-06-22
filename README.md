@@ -27,6 +27,7 @@ tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only
 tools/dephy_todo.py global-list /home/judd/moxa/personal --format json
 tools/workspace_routine.sh /home/judd/moxa/personal
 tools/parallel_test_runner.sh /home/judd/moxa/personal
+GITHUB_TOKEN=... tools/sync_github_metadata.sh /home/judd/moxa/personal
 ```
 
 ## Architecture Flow
@@ -67,3 +68,8 @@ with `JOBS=12`.
 - `docs/schema.md`: TODO YAML schema.
 - `docs/module_structure.md`: CLI and discovery structure.
 - `docs/todo.md`: current TODO summary.
+
+## License
+
+MIT. See `LICENSE` and `NOTICE.md`. Reuse and references are allowed, but the
+copyright notice and attribution to Judd (judadao) must be preserved.
