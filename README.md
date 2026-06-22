@@ -14,7 +14,15 @@ tools/dephy_todo.py render-md /path/to/docs/todo.yaml /path/to/docs/todo.md
 tools/dephy_todo.py list /path/to/docs/todo.yaml
 tools/dephy_todo.py set-status /path/to/docs/todo.yaml item-id done
 tools/dephy_todo.py add /path/to/docs/todo.yaml new-id area "Task title"
+tools/dephy_todo.py global-validate /home/judd/moxa/personal
+tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only
+tools/dephy_todo.py global-render-md /home/judd/moxa/personal /home/judd/moxa/personal/TODO.md
 ```
 
 Valid statuses are `todo`, `in_progress`, `done`, and `blocked`.
 
+## AI workflow
+
+Use `dephy_todo` as the global TODO entry point. Before starting work, add or
+mark the item `in_progress`. When behavior changes, update status and render
+the affected Markdown summary in the same change.

@@ -7,6 +7,7 @@ import yaml
 
 
 VALID_STATUS = {"todo", "in_progress", "done", "blocked"}
+SKIP_DIRS = {".git", "build", "build_out", "out", "zephyrproject", "archive"}
 
 
 def load(path: Path) -> dict:
@@ -170,6 +171,109 @@ def command_add(args: argparse.Namespace) -> int:
     return 0
 
 
+def discover_todos(root: Path) -> list[Path]:
+    todos: list[Path] = []
+
+    for path in root.rglob("docs/todo.yaml"):
+        if any(part in SKIP_DIRS for part in path.parts):
+            continue
+        todos.append(path)
+
+    return sorted(todos)
+
+
+def repo_name_for(root: Path, todo_path: Path) -> str:
+    try:
+        rel = todo_path.relative_to(root)
+        return rel.parts[0]
+    except ValueError:
+        return todo_path.parent.parent.name
+
+
+def command_global_validate(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    todos = discover_todos(root)
+    failed = 0
+
+    if not todos:
+        print(f"{root}: no docs/todo.yaml files found", file=sys.stderr)
+        return 1
+
+    for todo in todos:
+        errors = validate_data(load(todo), todo)
+        if errors:
+            failed = 1
+            for error in errors:
+                print(error, file=sys.stderr)
+        else:
+            print(f"{todo}: OK")
+
+    return failed
+
+
+def command_global_list(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    todos = discover_todos(root)
+    failed = 0
+
+    for todo in todos:
+        repo = repo_name_for(root, todo)
+        data = load(todo)
+        errors = validate_data(data, todo)
+        if errors:
+            failed = 1
+            for error in errors:
+                print(error, file=sys.stderr)
+            continue
+        for item in data["items"]:
+            if args.open_only and item["status"] == "done":
+                continue
+            print(f"{repo:24} {item['status']:11} {item['id']:28} {item['title']}")
+
+    return failed
+
+
+def render_global_markdown(root: Path, todos: list[Path]) -> str:
+    lines = [
+        "# Global TODO",
+        "",
+        "Source of truth: each repository's `docs/todo.yaml`; managed by `dephy_todo`.",
+        "",
+    ]
+
+    for todo in todos:
+        repo = repo_name_for(root, todo)
+        data = load(todo)
+        errors = validate_data(data, todo)
+        if errors:
+            lines.append(f"## {repo}")
+            lines.append("")
+            lines.append("- [ ] TODO YAML is invalid; run `global-validate`.")
+            lines.append("")
+            continue
+        lines.append(f"## {repo}")
+        lines.append("")
+        for item in data["items"]:
+            checked = "x" if item["status"] == "done" else " "
+            suffix = "" if item["status"] in {"todo", "done"} else f" (`{item['status']}`)"
+            lines.append(f"- [{checked}] `{item['id']}` {item['title']}{suffix}")
+        lines.append("")
+
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def command_global_render_md(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    output = Path(args.output)
+    todos = discover_todos(root)
+    if not todos:
+        print(f"{root}: no docs/todo.yaml files found", file=sys.stderr)
+        return 1
+    output.write_text(render_global_markdown(root, todos), encoding="utf-8")
+    print(f"rendered {output}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
@@ -202,6 +306,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--status", default="todo")
     p.set_defaults(func=command_add)
 
+    p = sub.add_parser("global-validate")
+    p.add_argument("root")
+    p.set_defaults(func=command_global_validate)
+
+    p = sub.add_parser("global-list")
+    p.add_argument("root")
+    p.add_argument("--open-only", action="store_true")
+    p.set_defaults(func=command_global_list)
+
+    p = sub.add_parser("global-render-md")
+    p.add_argument("root")
+    p.add_argument("output")
+    p.set_defaults(func=command_global_render_md)
+
     return parser
 
 
@@ -213,4 +331,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
