@@ -55,3 +55,17 @@ items:
   status: done
   notes: Makefile regression verifies build_out repo.json files are skipped by global
     audit.
+- id: routine-local-automation
+  area: automation
+  title: Add local scripts or third-party-tool wrappers for routine code viewing,
+    TODO scanning, and test execution to reduce agent token usage.
+  status: done
+  notes: Added tools/workspace_routine.sh for local repo status, TODO, test-command,
+    and key-file summaries.
+- id: local-gpu-routine-acceleration
+  area: automation
+  title: Add optional local GPU-aware acceleration hooks for routine scans, concurrent
+    checks, simple tests, and code indexing with CPU fallback.
+  status: done
+  notes: Added tools/local_accel_routine.sh with GPU detection, code index summary,
+    and CPU fallback concurrent test planning.

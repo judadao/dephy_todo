@@ -17,6 +17,10 @@ test: build_out
 	python3 -m json.tool build_out/global-list.json > /dev/null
 	python3 -m json.tool build_out/global-audit.json > /dev/null
 	! grep -q ignored build_out/global-audit.json
+	sh tools/workspace_routine.sh . > build_out/routine.txt
+	grep -q "## open todo" build_out/routine.txt
+	sh tools/local_accel_routine.sh . > build_out/local-accel.txt
+	grep -q "## acceleration" build_out/local-accel.txt
 
 clean:
 	rm -rf build_out

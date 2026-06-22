@@ -22,3 +22,8 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 ## performance
 
 - [x] Add a regression that global scans skip build output and remain fast on large workspaces.
+
+## automation
+
+- [x] Add local scripts or third-party-tool wrappers for routine code viewing, TODO scanning, and test execution to reduce agent token usage.
+- [x] Add optional local GPU-aware acceleration hooks for routine scans, concurrent checks, simple tests, and code indexing with CPU fallback.

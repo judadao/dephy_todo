@@ -20,6 +20,8 @@ tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only --format js
 tools/dephy_todo.py global-render-md /home/judd/moxa/personal /home/judd/moxa/personal/TODO.md
 tools/dephy_todo.py global-audit /home/judd/moxa/personal
 tools/dephy_todo.py global-audit /home/judd/moxa/personal --format json
+tools/workspace_routine.sh /home/judd/moxa/personal
+tools/local_accel_routine.sh /home/judd/moxa/personal
 ```
 
 Valid statuses are `todo`, `in_progress`, `done`, and `blocked`.
@@ -29,3 +31,11 @@ Valid statuses are `todo`, `in_progress`, `done`, and `blocked`.
 Use `dephy_todo` as the global TODO entry point. Before starting work, add or
 mark the item `in_progress`. When behavior changes, update status and render
 the affected Markdown summary in the same change.
+
+Use `tools/workspace_routine.sh` for repeated local context gathering before
+asking an agent to inspect many files. It summarizes repo dirtiness, open TODOs,
+suggested test commands, and key files without streaming full source content.
+
+Use `tools/local_accel_routine.sh` when the machine may have local acceleration.
+It detects NVIDIA or ROCm, summarizes code shape, and prepares concurrent test
+commands with CPU fallback.
