@@ -1,0 +1,9 @@
+version: 1
+policy:
+  source_of_truth: docs/todo.yaml
+items:
+  - id: sample
+    area: test
+    title: Sample task.
+    status: todo
+

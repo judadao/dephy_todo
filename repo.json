@@ -1,0 +1,7 @@
+{
+  "repo_type": "module",
+  "name": "dephy_todo",
+  "module_kind": "todo_management",
+  "product_dependency_allowed": true
+}
+
