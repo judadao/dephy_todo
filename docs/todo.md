@@ -34,3 +34,4 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 
 - [x] Refresh all repository READMEs to reflect current module structure, TODO workflow, audits, and routine tooling.
 - [x] Expand repository READMEs with project value, usage flow, and architecture principles while keeping long legacy details in docs.
+- [x] Keep project summary, value proposition, and usage steps in root READMEs instead of moving them to docs.

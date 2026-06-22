@@ -6,7 +6,13 @@ Global TODO and routine automation module for the Dephy workspace.
 `docs/todo.yaml`, but this module provides the commands that validate, list,
 render, and audit TODO state across the whole workspace.
 
-## Why This Exists
+## Overview
+
+Use this repo as the global TODO entry point. It keeps work state in YAML,
+renders Markdown for humans, and gives agents or scripts one place to inspect
+what remains across all Dephy repos.
+
+## Key Value
 
 - TODO state should be structured data, not scattered chat context.
 - Every repo can keep its own TODO file while still having one global entry
@@ -15,7 +21,7 @@ render, and audit TODO state across the whole workspace.
 - Routine scans and quick tests can run locally to reduce repeated manual
   context gathering.
 
-## Normal Flow
+## How To Use
 
 1. Before work starts, add or set the relevant TODO item to `in_progress`.
 2. Make the repo change.
