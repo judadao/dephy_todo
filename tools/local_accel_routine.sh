@@ -75,3 +75,5 @@ printf 'test_commands=%s\n' "$(wc -l < "$tmp/tests.tsv" | tr -d ' ')"
 echo
 echo "## note"
 echo "GPU detection is reported for local schedulers/indexers; current shell checks use CPU parallelism fallback."
+echo "Run tools/parallel_test_runner.sh for CPU-parallel tests."
+echo "Run tools/gpu_routine_hook.sh with DEPHY_GPU_ROUTINE_CMD for optional GPU-backed analysis."

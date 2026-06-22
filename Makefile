@@ -21,6 +21,10 @@ test: build_out
 	grep -q "## open todo" build_out/routine.txt
 	sh tools/local_accel_routine.sh . > build_out/local-accel.txt
 	grep -q "## acceleration" build_out/local-accel.txt
+	DEPHY_PARALLEL_SKIP_SELF=1 sh tools/parallel_test_runner.sh . > build_out/parallel-tests.txt
+	grep -q "total_seconds=" build_out/parallel-tests.txt
+	sh tools/gpu_routine_hook.sh . > build_out/gpu-hook.txt
+	grep -q "gpu=" build_out/gpu-hook.txt
 
 clean:
 	rm -rf build_out

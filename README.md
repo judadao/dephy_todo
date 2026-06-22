@@ -22,6 +22,8 @@ tools/dephy_todo.py global-audit /home/judd/moxa/personal
 tools/dephy_todo.py global-audit /home/judd/moxa/personal --format json
 tools/workspace_routine.sh /home/judd/moxa/personal
 tools/local_accel_routine.sh /home/judd/moxa/personal
+tools/parallel_test_runner.sh /home/judd/moxa/personal
+DEPHY_GPU_ROUTINE_CMD='your-gpu-indexer --root {root}' tools/gpu_routine_hook.sh /home/judd/moxa/personal
 ```
 
 Valid statuses are `todo`, `in_progress`, `done`, and `blocked`.
@@ -39,3 +41,7 @@ suggested test commands, and key files without streaming full source content.
 Use `tools/local_accel_routine.sh` when the machine may have local acceleration.
 It detects NVIDIA or ROCm, summarizes code shape, and prepares concurrent test
 commands with CPU fallback.
+
+Use `tools/parallel_test_runner.sh` for CPU-parallel quick tests across repos.
+Use `tools/gpu_routine_hook.sh` to connect a real local GPU-backed indexer or
+analysis command without making ordinary C/shell tests depend on GPU hardware.

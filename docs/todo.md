@@ -27,3 +27,5 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 
 - [x] Add local scripts or third-party-tool wrappers for routine code viewing, TODO scanning, and test execution to reduce agent token usage.
 - [x] Add optional local GPU-aware acceleration hooks for routine scans, concurrent checks, simple tests, and code indexing with CPU fallback.
+- [x] Add a CPU parallel workspace test runner and timing report for routine repo tests.
+- [x] Add optional GPU routine hook for local accelerated code indexing or analysis commands with CPU fallback.

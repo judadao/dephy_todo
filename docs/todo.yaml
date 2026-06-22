@@ -69,3 +69,17 @@ items:
   status: done
   notes: Added tools/local_accel_routine.sh with GPU detection, code index summary,
     and CPU fallback concurrent test planning.
+- id: cpu-parallel-test-runner
+  area: automation
+  title: Add a CPU parallel workspace test runner and timing report for routine repo
+    tests.
+  status: done
+  notes: Added tools/parallel_test_runner.sh; measured 10 quick repo tests at 2.40s
+    with JOBS=1 and 0.82s with JOBS=12 on this host.
+- id: gpu-optional-routine-hook
+  area: automation
+  title: Add optional GPU routine hook for local accelerated code indexing or analysis
+    commands with CPU fallback.
+  status: done
+  notes: Added tools/gpu_routine_hook.sh; detects local GPU and runs DEPHY_GPU_ROUTINE_CMD
+    when provided, with CPU fallback.
