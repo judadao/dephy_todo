@@ -2,9 +2,46 @@
 
 Global TODO and routine automation module for the Dephy workspace.
 
-Each repo owns `docs/todo.yaml`. This module validates TODO files, renders
-Markdown summaries, audits workspace coverage, and provides local routine tools
-that reduce repeated agent context gathering.
+`dephy_todo` is the workspace memory layer. Each repo still owns its local
+`docs/todo.yaml`, but this module provides the commands that validate, list,
+render, and audit TODO state across the whole workspace.
+
+## Why This Exists
+
+- TODO state should be structured data, not scattered chat context.
+- Every repo can keep its own TODO file while still having one global entry
+  point.
+- Agents and humans can update work status before changing code.
+- Routine scans and quick tests can run locally to reduce repeated manual
+  context gathering.
+
+## Normal Flow
+
+1. Before work starts, add or set the relevant TODO item to `in_progress`.
+2. Make the repo change.
+3. Update the TODO status and notes in the same change.
+4. Render Markdown from YAML for human reading.
+5. Run global validation before committing.
+
+Example:
+
+```sh
+tools/dephy_todo.py add docs/todo.yaml item-id docs "Improve README"
+tools/dephy_todo.py set-status docs/todo.yaml item-id in_progress
+tools/dephy_todo.py render-md docs/todo.yaml docs/todo.md
+tools/dephy_todo.py global-validate /home/judd/moxa/personal
+```
+
+## How It Works
+
+The YAML schema is intentionally small: version, policy, and items. The CLI
+validates local files, renders Markdown, lists local or global tasks, and audits
+workspace coverage. Global commands discover repos by `repo.json` while skipping
+dependency and build output directories.
+
+Routine scripts add a local automation layer for code review, TODO scanning,
+parallel quick tests, and optional GPU-backed indexing commands. They are not
+the source of truth; they are accelerators around the YAML files.
 
 ## Commands
 
@@ -12,17 +49,13 @@ that reduce repeated agent context gathering.
 tools/dephy_todo.py validate docs/todo.yaml
 tools/dephy_todo.py render-md docs/todo.yaml docs/todo.md
 tools/dephy_todo.py list docs/todo.yaml
-tools/dephy_todo.py add docs/todo.yaml item-id area "Task title"
-tools/dephy_todo.py set-status docs/todo.yaml item-id done
-
 tools/dephy_todo.py global-validate /home/judd/moxa/personal
 tools/dephy_todo.py global-audit /home/judd/moxa/personal
 tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only
-tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only --format json
 tools/dephy_todo.py global-render-md /home/judd/moxa/personal /home/judd/moxa/personal/TODO.md
 ```
 
-## Routine Tools
+Routine tools:
 
 ```sh
 tools/workspace_routine.sh /home/judd/moxa/personal
@@ -32,18 +65,8 @@ DEPHY_GPU_ROUTINE_CMD='your-gpu-indexer --root {root}' \
   tools/gpu_routine_hook.sh /home/judd/moxa/personal
 ```
 
-- `workspace_routine.sh`: repo dirtiness, open TODOs, suggested tests, key files.
-- `local_accel_routine.sh`: CPU/GPU detection and code-shape summary.
-- `parallel_test_runner.sh`: CPU-parallel quick tests across repos.
-- `gpu_routine_hook.sh`: optional GPU-backed analysis command with CPU fallback.
-
 On this host, 10 repo quick tests measured about 2.40s with `JOBS=1` and 0.82s
 with `JOBS=12`.
-
-## AI Workflow
-
-Before starting work, add or set the relevant TODO to `in_progress`. When
-behavior changes, update the status and rerender Markdown in the same change.
 
 ## Test
 

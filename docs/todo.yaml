@@ -90,3 +90,12 @@ items:
   status: done
   notes: Refreshed all repo READMEs and moved long legacy README content to docs/readme_legacy.md
     for large repos.
+- id: explain-repo-readmes
+  area: docs
+  title: Expand repository READMEs with project value, usage flow, and architecture
+    principles while keeping long legacy details in docs.
+  status: done
+  notes: User feedback said the shortened READMEs became harder to understand because
+    they lost selling points, usage flow, and implementation principles. Expanded
+    all root READMEs with value, normal flow, and implementation model sections
+    while keeping long legacy details in docs.
