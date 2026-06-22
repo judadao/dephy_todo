@@ -17,6 +17,7 @@ tools/dephy_todo.py add /path/to/docs/todo.yaml new-id area "Task title"
 tools/dephy_todo.py global-validate /home/judd/moxa/personal
 tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only
 tools/dephy_todo.py global-render-md /home/judd/moxa/personal /home/judd/moxa/personal/TODO.md
+tools/dephy_todo.py global-audit /home/judd/moxa/personal
 ```
 
 Valid statuses are `todo`, `in_progress`, `done`, and `blocked`.

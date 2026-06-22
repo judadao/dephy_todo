@@ -2,21 +2,49 @@ version: 1
 policy:
   source_of_truth: docs/todo.yaml
   rules:
-    - Use dephy_todo as the global TODO entry point.
-    - Before starting work, add or update the relevant TODO item.
-    - When behavior changes, update TODO status in the same change.
-    - Keep docs/todo.md as a human-readable summary generated from this file.
+  - Use dephy_todo as the global TODO entry point.
+  - Before starting work, add or update the relevant TODO item.
+  - When behavior changes, update TODO status in the same change.
+  - Keep docs/todo.md as a human-readable summary generated from this file.
 items:
-  - id: global-entrypoint
-    area: global
-    title: Add global TODO validation, listing, and Markdown rendering commands.
-    status: done
-  - id: repo-render
-    area: repo
-    title: Render repository Markdown summaries from docs/todo.yaml.
-    status: done
-  - id: status-updates
-    area: repo
-    title: Support CLI status updates for individual TODO items.
-    status: done
-
+- id: global-entrypoint
+  area: global
+  title: Add global TODO validation, listing, and Markdown rendering commands.
+  status: done
+- id: repo-render
+  area: repo
+  title: Render repository Markdown summaries from docs/todo.yaml.
+  status: done
+- id: status-updates
+  area: repo
+  title: Support CLI status updates for individual TODO items.
+  status: done
+- id: align-golden-sample
+  area: repo
+  title: Align repository layout with dephy_module_golden_sample.
+  status: in_progress
+- id: global-audit
+  area: global
+  title: Add a global audit command that reports repo.json repositories missing docs/todo.yaml.
+  status: done
+  notes: Added global-audit and skipped dependency/build output directories during
+    repo discovery.
+- id: add-agents-doc
+  area: repo
+  title: Add AGENTS.md with TODO management workflow and validation commands.
+  status: todo
+- id: module-structure-doc
+  area: repo
+  title: Add docs/module_structure.md describing CLI, schema, tests, and generated
+    outputs.
+  status: todo
+- id: json-output
+  area: integration
+  title: Add JSON output for global-list or audit results so automation can consume
+    TODO state.
+  status: todo
+- id: scan-performance
+  area: performance
+  title: Add a regression that global scans skip build output and remain fast on large
+    workspaces.
+  status: todo

@@ -9,6 +9,7 @@ test: build_out
 	python3 tools/dephy_todo.py global-validate .
 	python3 tools/dephy_todo.py global-list . --open-only
 	python3 tools/dephy_todo.py global-render-md . build_out/global.todo.md
+	python3 tools/dephy_todo.py global-audit .
 
 clean:
 	rm -rf build_out

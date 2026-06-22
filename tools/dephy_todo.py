@@ -7,7 +7,7 @@ import yaml
 
 
 VALID_STATUS = {"todo", "in_progress", "done", "blocked"}
-SKIP_DIRS = {".git", "build", "build_out", "out", "zephyrproject", "archive"}
+SKIP_DIRS = {".git", "build", "build_out", "deps", "out", "zephyrproject", "archive"}
 
 
 def load(path: Path) -> dict:
@@ -182,6 +182,17 @@ def discover_todos(root: Path) -> list[Path]:
     return sorted(todos)
 
 
+def discover_repos(root: Path) -> list[Path]:
+    repos: list[Path] = []
+
+    for path in root.rglob("repo.json"):
+        if any(part in SKIP_DIRS for part in path.parts):
+            continue
+        repos.append(path.parent)
+
+    return sorted(repos)
+
+
 def repo_name_for(root: Path, todo_path: Path) -> str:
     try:
         rel = todo_path.relative_to(root)
@@ -274,6 +285,38 @@ def command_global_render_md(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_global_audit(args: argparse.Namespace) -> int:
+    root = Path(args.root)
+    repos = discover_repos(root)
+    failed = 0
+
+    if not repos:
+        print(f"{root}: no repo.json files found", file=sys.stderr)
+        return 1
+
+    for repo in repos:
+        todo = repo / "docs" / "todo.yaml"
+        name = repo.name or repo.resolve().name
+        if not todo.exists():
+            print(f"{name:24} missing docs/todo.yaml")
+            failed = 1
+            continue
+
+        data = load(todo)
+        errors = validate_data(data, todo)
+        if errors:
+            failed = 1
+            print(f"{name:24} invalid docs/todo.yaml")
+            for error in errors:
+                print(error, file=sys.stderr)
+            continue
+
+        open_count = sum(1 for item in data["items"] if item["status"] != "done")
+        print(f"{name:24} ok open={open_count}")
+
+    return failed
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
@@ -319,6 +362,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("root")
     p.add_argument("output")
     p.set_defaults(func=command_global_render_md)
+
+    p = sub.add_parser("global-audit")
+    p.add_argument("root")
+    p.set_defaults(func=command_global_audit)
 
     return parser
 
