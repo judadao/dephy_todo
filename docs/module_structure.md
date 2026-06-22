@@ -19,9 +19,16 @@ carry `repo.json` and `docs/todo.yaml`.
 ## Files
 
 - `tools/dephy_todo.py`: CLI implementation.
+- `tools/local_code_review.sh`: optional local-model preliminary code review
+  through Ollama or vLLM/OpenAI-compatible HTTP endpoints.
+- `tools/benchmark_local_review.sh`: repeatable timing wrapper for local review
+  context preparation and optional model generation.
+- `tools/gpu_routine_hook.sh`: GPU-aware hook that can run a generic command or
+  `local_code_review.sh` when `DEPHY_LOCAL_REVIEW=1`.
 - `docs/todo.yaml`: source of truth for this repo's TODO state.
 - `docs/todo.md`: generated summary for humans.
 - `docs/schema.md`: TODO schema reference.
+- `docs/local_review_benchmark.md`: local-model review benchmark notes.
 - `tests/sample.todo.yaml`: validation and render fixture.
 - `Makefile`: public test target and generated-output checks.
 - `build_out/`: ignored generated test outputs.

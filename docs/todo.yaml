@@ -137,3 +137,16 @@ items:
     in repo.json and LICENSE first. Added MIT LICENSE, NOTICE.md attribution
     statements, README license sections, repo.json description/topics/license
     metadata, and a GitHub metadata sync script for token-backed remote updates.
+- id: local-gpu-code-review
+  area: automation
+  title: Add a local-model code review routine that can call Ollama or vLLM/OpenAI-compatible
+    endpoints from the GPU routine hook.
+  status: done
+  notes: User wants GPU-assisted code review by running a local model first to
+    generate preliminary findings before Codex makes the final judgment. Added
+    local_code_review.sh with Ollama and OpenAI-compatible endpoint support,
+    gpu_routine_hook integration, quality gate, benchmark_local_review.sh, and
+    benchmark docs. On this host, context preparation measured about 31-37 ms
+    with an explicit model and about 70-71 ms with Ollama auto model detection;
+    Ollama deepseek-coder was fast but failed quality at 4.185 s, mistral failed
+    quality at 17.566 s, and llama3.2 passed quality at 5.435-11.422 s.

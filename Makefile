@@ -25,6 +25,13 @@ test: build_out
 	grep -q "total_seconds=" build_out/parallel-tests.txt
 	sh tools/gpu_routine_hook.sh . > build_out/gpu-hook.txt
 	grep -q "gpu=" build_out/gpu-hook.txt
+	sh tools/local_code_review.sh --dry-run . > build_out/local-code-review.txt
+	grep -q "local code review dry run" build_out/local-code-review.txt
+	sh tools/benchmark_local_review.sh . > build_out/local-review-benchmark.txt
+	grep -q "avg_ms=" build_out/local-review-benchmark.txt
+	sh -n tools/local_code_review.sh
+	sh -n tools/benchmark_local_review.sh
+	sh -n tools/gpu_routine_hook.sh
 
 clean:
 	rm -rf build_out
