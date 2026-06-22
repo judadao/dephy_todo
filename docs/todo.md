@@ -43,3 +43,4 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 ## metadata
 
 - [x] Add MIT license files and local repository metadata descriptions/topics for all workspace repos.
+- [x] Refresh all workspace repo About descriptions and hashtags/topics so GitHub metadata is clearer.

@@ -159,3 +159,12 @@ items:
     actionable cleanup in Modbus and MQTT broker tests. Added workspace_cppcheck.sh,
     wired it into make test, skipped repos without C sources, and counted only
     primary cppcheck diagnostic lines.
+- id: repo-about-topics-refresh
+  area: metadata
+  title: Refresh all workspace repo About descriptions and hashtags/topics so GitHub
+    metadata is clearer.
+  status: done
+  notes: Updated every top-level repo.json description to a clearer GitHub About
+    sentence and expanded repo-specific topics for board platform, industrial IO,
+    IoT protocols, golden samples, testkit, todo automation, Modbus, MQTT field
+    bridge, and MQTT broker repos.

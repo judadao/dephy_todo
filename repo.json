@@ -1,7 +1,7 @@
 {
   "repo_type": "module",
   "name": "dephy_todo",
-  "description": "Global structured TODO management and routine automation module for multi-repo Dephy workspaces.",
+  "description": "Global TODO and routine automation module for Dephy workspaces, tracking cross-repo work, validation, local acceleration, and review tasks.",
   "module_kind": "todo_management",
   "product_dependency_allowed": true,
   "license": "MIT",
@@ -11,6 +11,8 @@
     "todo",
     "automation",
     "multi-repo",
-    "developer-tools"
+    "developer-tools",
+    "workflow",
+    "static-analysis"
   ]
 }
