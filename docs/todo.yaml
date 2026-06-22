@@ -117,3 +117,13 @@ items:
     should move to docs while the essential summary and usage remain in README.
     Rewrote all root READMEs to a compact template and kept performance results
     only where measured.
+- id: repo-specific-readme-scan
+  area: docs
+  title: Rescan each repo and rebuild README content around repo-specific features,
+    architecture flow, and user scenario flow diagrams.
+  status: done
+  notes: User noted mqtt_min_broker dynamic/P2P behavior was omitted. README files
+    should not be generic templates; each repo needs feature-specific content,
+    a simple architecture flow diagram, and an example user scenario flow. Rescanned
+    repo docs, scripts, tests, and configs; rebuilt all READMEs with repo-specific
+    features, architecture flow diagrams, and user scenario diagrams.

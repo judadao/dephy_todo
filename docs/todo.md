@@ -36,3 +36,4 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 - [x] Expand repository READMEs with project value, usage flow, and architecture principles while keeping long legacy details in docs.
 - [x] Keep project summary, value proposition, and usage steps in root READMEs instead of moving them to docs.
 - [x] Compact long root READMEs into a consistent template with overview, value, usage, docs links, simple principle, and optional performance results.
+- [x] Rescan each repo and rebuild README content around repo-specific features, architecture flow, and user scenario flow diagrams.
