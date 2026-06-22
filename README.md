@@ -27,6 +27,7 @@ tools/dephy_todo.py global-list /home/judd/moxa/personal --open-only
 tools/dephy_todo.py global-list /home/judd/moxa/personal --format json
 tools/workspace_routine.sh /home/judd/moxa/personal
 tools/parallel_test_runner.sh /home/judd/moxa/personal
+tools/workspace_cppcheck.sh /home/judd/moxa/personal
 tools/local_code_review.sh --dry-run /home/judd/moxa/personal/mqtt_min_broker
 tools/benchmark_local_review.sh /home/judd/moxa/personal/mqtt_min_broker
 DEPHY_LOCAL_REVIEW_BENCH_MODEL=1 \

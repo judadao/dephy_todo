@@ -29,9 +29,12 @@ test: build_out
 	grep -q "local code review dry run" build_out/local-code-review.txt
 	sh tools/benchmark_local_review.sh . > build_out/local-review-benchmark.txt
 	grep -q "avg_ms=" build_out/local-review-benchmark.txt
+	OUT_DIR=build_out/cppcheck sh tools/workspace_cppcheck.sh . > build_out/cppcheck.txt
+	grep -q "total_findings=" build_out/cppcheck.txt
 	sh -n tools/local_code_review.sh
 	sh -n tools/benchmark_local_review.sh
 	sh -n tools/gpu_routine_hook.sh
+	sh -n tools/workspace_cppcheck.sh
 
 clean:
 	rm -rf build_out

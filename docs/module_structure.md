@@ -25,6 +25,8 @@ carry `repo.json` and `docs/todo.yaml`.
   context preparation and optional model generation.
 - `tools/gpu_routine_hook.sh`: GPU-aware hook that can run a generic command or
   `local_code_review.sh` when `DEPHY_LOCAL_REVIEW=1`.
+- `tools/workspace_cppcheck.sh`: workspace C static-analysis routine using
+  cppcheck when available.
 - `docs/todo.yaml`: source of truth for this repo's TODO state.
 - `docs/todo.md`: generated summary for humans.
 - `docs/schema.md`: TODO schema reference.

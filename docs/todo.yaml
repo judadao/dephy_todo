@@ -150,3 +150,12 @@ items:
     with an explicit model and about 70-71 ms with Ollama auto model detection;
     Ollama deepseek-coder was fast but failed quality at 4.185 s, mistral failed
     quality at 17.566 s, and llama3.2 passed quality at 5.435-11.422 s.
+- id: workspace-cppcheck-routine
+  area: automation
+  title: Add a workspace cppcheck routine so code review can consistently scan C repos
+    for warning/style/performance issues.
+  status: done
+  notes: Manual review found cppcheck available locally and useful for surfacing
+    actionable cleanup in Modbus and MQTT broker tests. Added workspace_cppcheck.sh,
+    wired it into make test, skipped repos without C sources, and counted only
+    primary cppcheck diagnostic lines.
