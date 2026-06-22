@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -226,6 +227,7 @@ def command_global_list(args: argparse.Namespace) -> int:
     root = Path(args.root)
     todos = discover_todos(root)
     failed = 0
+    rows: list[dict] = []
 
     for todo in todos:
         repo = repo_name_for(root, todo)
@@ -239,7 +241,19 @@ def command_global_list(args: argparse.Namespace) -> int:
         for item in data["items"]:
             if args.open_only and item["status"] == "done":
                 continue
-            print(f"{repo:24} {item['status']:11} {item['id']:28} {item['title']}")
+            rows.append({
+                "repo": repo,
+                "status": item["status"],
+                "id": item["id"],
+                "area": item["area"],
+                "title": item["title"],
+            })
+
+    if args.format == "json":
+        print(json.dumps(rows, indent=2))
+    else:
+        for row in rows:
+            print(f"{row['repo']:24} {row['status']:11} {row['id']:28} {row['title']}")
 
     return failed
 
@@ -289,6 +303,7 @@ def command_global_audit(args: argparse.Namespace) -> int:
     root = Path(args.root)
     repos = discover_repos(root)
     failed = 0
+    rows: list[dict] = []
 
     if not repos:
         print(f"{root}: no repo.json files found", file=sys.stderr)
@@ -298,7 +313,12 @@ def command_global_audit(args: argparse.Namespace) -> int:
         todo = repo / "docs" / "todo.yaml"
         name = repo.name or repo.resolve().name
         if not todo.exists():
-            print(f"{name:24} missing docs/todo.yaml")
+            rows.append({
+                "repo": name,
+                "status": "missing",
+                "open_count": None,
+                "message": "missing docs/todo.yaml",
+            })
             failed = 1
             continue
 
@@ -306,13 +326,32 @@ def command_global_audit(args: argparse.Namespace) -> int:
         errors = validate_data(data, todo)
         if errors:
             failed = 1
-            print(f"{name:24} invalid docs/todo.yaml")
+            rows.append({
+                "repo": name,
+                "status": "invalid",
+                "open_count": None,
+                "message": "invalid docs/todo.yaml",
+            })
             for error in errors:
                 print(error, file=sys.stderr)
             continue
 
         open_count = sum(1 for item in data["items"] if item["status"] != "done")
-        print(f"{name:24} ok open={open_count}")
+        rows.append({
+            "repo": name,
+            "status": "ok",
+            "open_count": open_count,
+            "message": "ok",
+        })
+
+    if args.format == "json":
+        print(json.dumps(rows, indent=2))
+    else:
+        for row in rows:
+            if row["status"] == "ok":
+                print(f"{row['repo']:24} ok open={row['open_count']}")
+            else:
+                print(f"{row['repo']:24} {row['message']}")
 
     return failed
 
@@ -356,6 +395,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("global-list")
     p.add_argument("root")
     p.add_argument("--open-only", action="store_true")
+    p.add_argument("--format", choices=["text", "json"], default="text")
     p.set_defaults(func=command_global_list)
 
     p = sub.add_parser("global-render-md")
@@ -365,6 +405,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("global-audit")
     p.add_argument("root")
+    p.add_argument("--format", choices=["text", "json"], default="text")
     p.set_defaults(func=command_global_audit)
 
     return parser

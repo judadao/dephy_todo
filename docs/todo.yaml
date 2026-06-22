@@ -22,7 +22,9 @@ items:
 - id: align-golden-sample
   area: repo
   title: Align repository layout with dephy_module_golden_sample.
-  status: in_progress
+  status: done
+  notes: Aligned applicable repo guidance and structure docs for this Python TODO
+    module.
 - id: global-audit
   area: global
   title: Add a global audit command that reports repo.json repositories missing docs/todo.yaml.
@@ -32,19 +34,24 @@ items:
 - id: add-agents-doc
   area: repo
   title: Add AGENTS.md with TODO management workflow and validation commands.
-  status: todo
+  status: done
+  notes: Added AGENTS.md with workflow and validation guidance.
 - id: module-structure-doc
   area: repo
   title: Add docs/module_structure.md describing CLI, schema, tests, and generated
     outputs.
-  status: todo
+  status: done
+  notes: Added docs/module_structure.md for CLI and discovery structure.
 - id: json-output
   area: integration
   title: Add JSON output for global-list or audit results so automation can consume
     TODO state.
-  status: todo
+  status: done
+  notes: global-list and global-audit support --format json.
 - id: scan-performance
   area: performance
   title: Add a regression that global scans skip build output and remain fast on large
     workspaces.
-  status: todo
+  status: done
+  notes: Makefile regression verifies build_out repo.json files are skipped by global
+    audit.
