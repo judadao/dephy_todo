@@ -29,3 +29,7 @@ Source of truth: `docs/todo.yaml`. Update YAML before starting or completing wor
 - [x] Add optional local GPU-aware acceleration hooks for routine scans, concurrent checks, simple tests, and code indexing with CPU fallback.
 - [x] Add a CPU parallel workspace test runner and timing report for routine repo tests.
 - [x] Add optional GPU routine hook for local accelerated code indexing or analysis commands with CPU fallback.
+
+## docs
+
+- [x] Refresh all repository READMEs to reflect current module structure, TODO workflow, audits, and routine tooling.

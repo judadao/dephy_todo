@@ -83,3 +83,10 @@ items:
   status: done
   notes: Added tools/gpu_routine_hook.sh; detects local GPU and runs DEPHY_GPU_ROUTINE_CMD
     when provided, with CPU fallback.
+- id: refresh-repo-readmes
+  area: docs
+  title: Refresh all repository READMEs to reflect current module structure, TODO
+    workflow, audits, and routine tooling.
+  status: done
+  notes: Refreshed all repo READMEs and moved long legacy README content to docs/readme_legacy.md
+    for large repos.
