@@ -86,6 +86,21 @@ measured about 31-37 ms with an explicit model and about 70-71 ms with Ollama
 auto model detection, while `llama3.2:latest` produced a quality-gated Ollama
 review in about 5.435-11.422 s depending on warmup.
 
+## Systematic Regression Testing
+
+From the workspace root, run the shared pytest regression module:
+
+```sh
+../dephy_testkit/.venv/bin/python -m pytest ../dephy_testkit/tests/regression --module dephy_todo
+../dephy_testkit/.venv/bin/python -m pytest ../dephy_testkit/tests/regression --module dephy_todo --profile integration
+```
+
+The local repo test remains:
+
+```sh
+make test
+```
+
 ## Docs
 
 - `docs/schema.md`: TODO YAML schema.
